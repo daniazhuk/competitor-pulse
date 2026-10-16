@@ -1,0 +1,57 @@
+name: competitor-pulse
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: competitor_pulse
+      POSTGRES_PASSWORD: competitor_pulse
+      POSTGRES_DB: competitor_pulse
+    ports:
+      - '${DB_HOST_PORT:-5434}:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U competitor_pulse']
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  mock-llm:
+    image: python:3.13-alpine
+    command: ['python', '/app/mock-llm-server.py']
+    volumes:
+      - ./files/mock-llm:/app:ro
+    ports:
+      - '4001:4001'
+
+  server:
+    build:
+      context: .
+      target: server
+    environment:
+      DATABASE_URL: postgres://competitor_pulse:competitor_pulse@db:5432/competitor_pulse
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://mock-llm:4001/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-mock-key}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
+      POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-30000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+      mock-llm:
+        condition: service_started
+
+  web:
+    build:
+      context: .
+      target: web
+    ports:
+      - '8080:80'
+    depends_on:
+      - server
+
+volumes:
+  db-data:
