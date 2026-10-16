@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  # esbuild (used by tsx, drizzle-kit, vite) verifies its platform binary on install.
+  esbuild: true
+  # Optional native speedups pulled in by testcontainers; not needed.
+  cpu-features: false
+  ssh2: false
+  protobufjs: false
+minimumReleaseAgeExclude:
+  - eslint@10.13.0

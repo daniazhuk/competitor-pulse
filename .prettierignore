@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+dist
+apps/server/drizzle/meta
+files
+instructions.md
