@@ -13,7 +13,7 @@
     "test:e2e": "playwright test",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
-    "typecheck": "pnpm -r typecheck",
+    "typecheck": "pnpm -r typecheck && tsc --noEmit",
     "db:migrate": "pnpm --filter @competitor-pulse/server db:migrate"
   },
   "devDependencies": {
