@@ -1,0 +1,7 @@
+.info {
+  color: var(--color-muted);
+}
+
+.error {
+  color: var(--color-danger);
+}
