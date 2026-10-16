@@ -36,7 +36,7 @@ timeline fill in. The timeline refreshes on its own every 5 seconds.
 
 ## Local development
 
-Requires Node.js 24+ and pnpm 11 (`npm i -g pnpm@11`).
+Requires Node.js 24+ and pnpm 12 (`npm i -g pnpm@12`).
 
 ```bash
 pnpm install

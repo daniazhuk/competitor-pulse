@@ -17,7 +17,7 @@ export interface OpenAiSummarizerOptions {
   fetch?: typeof fetch;
 }
 
-export class LlmRequestError extends Error {
+class LlmRequestError extends Error {
   override name = 'LlmRequestError';
 }
 

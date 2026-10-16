@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 FROM node:24-alpine AS build
-RUN npm install --global pnpm@11.6.0
+RUN npm install --global pnpm@12.14.0
 WORKDIR /app
 # Manifests first so the dependency layer is cached across source changes.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./

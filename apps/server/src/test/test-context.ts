@@ -12,7 +12,7 @@ import { SnapshotPoller } from '../snapshots/snapshot-poller.js';
 import type { ChangeSummarizer, ChangeSummaryInput } from '../summaries/change-summarizer.js';
 import { SummaryWorker } from '../summaries/summary-worker.js';
 
-export const START_TIME = new Date('2026-09-10T12:00:00.000Z');
+const START_TIME = new Date('2026-09-10T12:00:00.000Z');
 export const MAX_SUMMARY_ATTEMPTS = 3;
 export const RETRY_BASE_DELAY_MS = 1_000;
 
@@ -24,12 +24,12 @@ export const listing = (overrides: Partial<Listing> = {}): Listing => ({
   ...overrides,
 });
 
-export const FIXTURES: ListingFixtures = {
+const FIXTURES: ListingFixtures = {
   'acme-crm': [listing(), listing({ price: '$39/mo' }), listing({ price: '$39/mo' })],
   'north-analytics': [listing({ title: 'North Analytics' })],
 };
 
-export class FakeClock {
+class FakeClock {
   private current = new Date(START_TIME);
   readonly now = (): Date => new Date(this.current);
   advance(ms: number): void {
@@ -38,7 +38,7 @@ export class FakeClock {
 }
 
 /** Records every call; behaviour can be swapped per test. */
-export class FakeSummarizer implements ChangeSummarizer {
+class FakeSummarizer implements ChangeSummarizer {
   readonly calls: ChangeSummaryInput[] = [];
   respond: (input: ChangeSummaryInput) => Promise<string> = (input) =>
     Promise.resolve(`Changed: ${input.changes.map((change) => change.field).join(', ')}`);

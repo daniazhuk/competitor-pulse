@@ -7,7 +7,7 @@ import type { SnapshotRow } from '../db/schema.js';
 import { parseOrThrow } from '../shared/validation.js';
 import { listSnapshots } from './snapshot-repository.js';
 
-export function toSnapshotResponse(row: SnapshotRow): Snapshot {
+function toSnapshotResponse(row: SnapshotRow): Snapshot {
   return {
     id: row.id,
     fetchedAt: row.fetchedAt.toISOString(),

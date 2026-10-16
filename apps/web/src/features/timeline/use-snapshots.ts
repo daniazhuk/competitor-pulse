@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { z } from 'zod';
 import { ApiError, requestJson } from '../../shared/api-client';
 
-export const SNAPSHOTS_PAGE_SIZE = 20;
+const SNAPSHOTS_PAGE_SIZE = 20;
 // New snapshots and pending AI summaries arrive in the background, so keep the view fresh.
 const REFRESH_INTERVAL_MS = 5_000;
 

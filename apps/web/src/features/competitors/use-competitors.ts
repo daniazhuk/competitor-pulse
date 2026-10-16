@@ -2,7 +2,7 @@ import type { Competitor } from '@competitor-pulse/contract';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchCompetitors, trackCompetitor, untrackCompetitor } from './competitors-api';
 
-export const competitorsQueryKey = ['competitors'] as const;
+const competitorsQueryKey = ['competitors'] as const;
 
 export function useCompetitors() {
   return useQuery({ queryKey: competitorsQueryKey, queryFn: fetchCompetitors });
